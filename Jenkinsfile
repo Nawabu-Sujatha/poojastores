@@ -2,7 +2,7 @@ pipeline {
     agent { label 'master' }
    
 	environment {
-		registry = "kss7/dotnetapp"
+		registry = "Nawabu-Sujatha/poojastores"
 		img = "$registry" + ":${env.BUILD_ID}"
 		registryCredential = 'docker-hub-login' 
     }	
@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/kss7/CICDJenkins.git'
+                git branch: 'main', url: 'https://github.com/Nawabu-Sujatha/poojastores.git'
                 sh 'ls -la'
             }
         }
@@ -32,7 +32,7 @@ pipeline {
 		stage('Run') {
 			steps{
 				echo "Run image"
-				sh returnStdout: true, script: "docker run --rm -d --name ${JOB_NAME} -p 8081:5000 ${img}"
+				sh returnStdout: true, script: "docker run --rm -d --name ${JOB_NAME} -p 8080:5000 ${img}"
 			}
 		}
 		stage('Release') {
